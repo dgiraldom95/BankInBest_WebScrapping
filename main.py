@@ -9,3 +9,4 @@ if __name__=='__main__':
 
     elif opcion == 2:
         tasas = Bancolombia.obtenerCDT()
+        print(tasas)
