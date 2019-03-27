@@ -1,11 +1,12 @@
 import BancoDeBogota
 import Bancolombia
 import Pichincha
-import bbva
+import BBVA
 import BancoCajaSocial
+import Bancoomeva
 
 if __name__=='__main__':
-    opcion = 4
+    opcion = 6
     if opcion == 1:
         tasas = BancoDeBogota.obtenerCDT()
         print(tasas)
@@ -19,9 +20,13 @@ if __name__=='__main__':
         print(tasas)
 
     elif opcion == 4:
-        tasas = bbva.obtenerCDT()
+        tasas = BBVA.obtenerCDT()
         print(tasas)
 
     elif opcion == 5:
         tasas = BancoCajaSocial.obtenerCDT()
+        print(tasas)
+
+    elif opcion == 6:
+        tasas = Bancoomeva.obtenerCDT()
         print(tasas)
