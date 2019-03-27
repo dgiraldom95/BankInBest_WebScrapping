@@ -4,9 +4,10 @@ import Pichincha
 import BBVA
 import BancoCajaSocial
 import Bancoomeva
+import Falabella
 
 if __name__=='__main__':
-    opcion = 6
+    opcion = 7
     if opcion == 1:
         tasas = BancoDeBogota.obtenerCDT()
         print(tasas)
@@ -29,4 +30,8 @@ if __name__=='__main__':
 
     elif opcion == 6:
         tasas = Bancoomeva.obtenerCDT()
+        print(tasas)
+
+    elif opcion == 7:
+        tasas = Falabella.obtenerCDT()
         print(tasas)
