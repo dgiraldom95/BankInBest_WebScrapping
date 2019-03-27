@@ -4,9 +4,11 @@ import Pichincha
 import bbva
 import BancoCajaSocial
 import AvVillas
+import Procredit
+import WWB
 
 if __name__=='__main__':
-    opcion = 6
+    opcion = 8
     if opcion == 1:
         tasas = BancoDeBogota.obtenerCDT()
         print(tasas)
@@ -29,4 +31,12 @@ if __name__=='__main__':
 
     elif opcion == 6:
         tasas = AvVillas.obtenerCDT()
+        print(tasas)
+
+    elif opcion == 7:
+        tasas = Procredit.obtenerCDT()
+        print(tasas)
+
+    elif opcion == 8:
+        tasas = WWB.obtenerCDT()
         print(tasas)
