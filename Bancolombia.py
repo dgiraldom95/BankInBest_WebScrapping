@@ -10,8 +10,7 @@ def obtenerCDT():
     url = 'https://www.grupobancolombia.com/wps/portal/personas/productos-servicios/inversiones/cdts/fisicos/simulador-cdt'
     tasas = {}
 
-    driver = webdriver.Chrome('/Users/whatevercamps/PycharmProjects/BankInBest_WebScrapping/chromedriver')
-   # driver = webdriver.Chrome(executable_path=r'C:/Users/Rouzajor/Desktop/Chrome Web Driver/chromedriver.exe')
+    driver = webdriver.Chrome()
 
     # Los plazos con los cuales se van a calcular las tasas
     plazos = range(60, 540, 30)

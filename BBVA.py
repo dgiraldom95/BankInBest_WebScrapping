@@ -9,8 +9,7 @@ def obtenerCDT():
     url = 'https://www.bbva.com.co/personas/productos/inversion/cdt/tradicional/simulador.html'
     tasas = {}
 
-    driver = webdriver.Chrome('/Users/whatevercamps/PycharmProjects/BankInBest_WebScrapping/chromedriver')
-    #driver = webdriver.Chrome(executable_path=r'C:/Users/Rouzajor/Desktop/Chrome Web Driver/chromedriver.exe')
+    driver = webdriver.Chrome()
 
     # Los plazos con los cuales se van a calcular las tasas
     plazos = range(2, 16)
@@ -19,7 +18,14 @@ def obtenerCDT():
         driver.get(url)
         for i in plazos:
             # Se selecciona el plazo de CDT
-            ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "resultSimulator:plazoCombo")))
+            elem = driver.find_element_by_xpath("//*")
+            html = elem.get_attribute("outerHTML")
+
+            # Se instancia el BeautifulSoup a partir del html
+            soup = BeautifulSoup(html, 'html.parser')
+            print(soup.prettify())
+
+            ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'headerTitle')))
             select = Select(ele)
             select.select_by_visible_text(str(i) + ' meses')
 
