@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import bs4
 import re
+from bs4 import BeautifulSoup
 
 class cdtAV:
 	def __init__(self,monto, rango, porcentaje):
@@ -26,8 +27,6 @@ def obtenerCDT():
 	soup = BeautifulSoup(html, 'html.parser')
 
 	tabla = soup.findAll('table')[0]
-
-	#print(tabla)
 
 	filas = []
 

@@ -8,7 +8,7 @@ import Procredit
 import WWB
 
 if __name__=='__main__':
-    opcion = 8
+    opcion = 7
     if opcion == 1:
         tasas = BancoDeBogota.obtenerCDT()
         print(tasas)
@@ -34,9 +34,5 @@ if __name__=='__main__':
         print(tasas)
 
     elif opcion == 7:
-        tasas = Procredit.obtenerCDT()
-        print(tasas)
-
-    elif opcion == 8:
         tasas = WWB.obtenerCDT()
         print(tasas)
