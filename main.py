@@ -7,9 +7,10 @@ import AvVillas
 import Bancoomeva
 import Falabella
 import WWB
+import Davivienda
 
 if __name__=='__main__':
-    opcion = 7
+    opcion = 10
     if opcion == 1:
         tasas = BancoDeBogota.obtenerCDT()
         print(tasas)
@@ -46,3 +47,5 @@ if __name__=='__main__':
         tasas = WWB.obtenerCDT()
         print(tasas)
 
+    elif opcion == 10:
+        Davivienda.obtenerCDT()
