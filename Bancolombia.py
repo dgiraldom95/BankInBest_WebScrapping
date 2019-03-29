@@ -1,3 +1,4 @@
+import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
@@ -23,7 +24,13 @@ def obtenerCDT():
             # Se selecciona tipo de CDT como CDT Bancolombia
             ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "comboTipoCDT")))
             select = Select(ele)
-            select.select_by_visible_text('CDT BANCOLOMBIA')
+            for wait in range(1000):
+                try:
+                    time.sleep(0.1)
+                    select.select_by_visible_text('CDT BANCOLOMBIA')
+                    break
+                except:
+                    continue
 
             # Se selecciona el monto de la inversión como 1 millon
             ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "textMontoInversion")))
@@ -36,9 +43,16 @@ def obtenerCDT():
             ele.send_keys(str(i))
 
             # Se selecciona periocidad de 1 mes
-            ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "comboPeriodicidadInversion")))
+            ele = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.NAME, "comboPeriodicidadInversion")))
             select = Select(ele)
-            select.select_by_visible_text('Mensual')
+            for wait in range(1000):
+                try:
+                    time.sleep(0.1)
+                    select.select_by_visible_text('Mensual')
+                    break
+                except:
+                    continue
 
             # Se hace click en el boton calcular
             ele = WebDriverWait(driver, 10).until(
@@ -68,7 +82,7 @@ def obtenerCDT():
 
                     for td in child.children:
                         if type(td) is bs4.Tag:
-                            cols.append(td.string) #Se obtiene el texto del td
+                            cols.append(td.string)  # Se obtiene el texto del td
 
                     filas.append(cols)
 

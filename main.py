@@ -9,8 +9,26 @@ import Falabella
 import WWB
 import Davivienda
 
-if __name__=='__main__':
-    opcion = 4
+funcionesCDTS = [
+    ('AvVillas', AvVillas.obtenerCDT),
+    ('Banco Caja Social', BancoCajaSocial.obtenerCDT),
+    ('Bancolombia', Bancolombia.obtenerCDT),
+    ('Bancoomeva', Bancoomeva.obtenerCDT),
+    ('BBVA', BBVA.obtenerCDT),
+    ('Davivienda', Davivienda.obtenerCDT),
+    ('Falabella', Falabella.obtenerCDT),
+    ('Pichincha', Pichincha.obtenerCDT),
+    ('WWB', WWB.obtenerCDT),
+]
+
+if __name__ == '__main__':
+    opcion = 0
+
+    if opcion == 0:
+        for (banco, funcionCdt) in funcionesCDTS:
+            tasas = funcionCdt()
+            print(banco, ' - ', tasas)
+
     if opcion == 1:
         tasas = BancoDeBogota.obtenerCDT()
         print(tasas)
