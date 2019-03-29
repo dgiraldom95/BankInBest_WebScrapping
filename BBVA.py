@@ -1,43 +1,66 @@
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait, Select
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+import requests
 from bs4 import BeautifulSoup
 import bs4
+import re
+from bs4 import BeautifulSoup
+
+class cdtBBVA:
+    def __init__(self,monto, rango, porcentaje):
+        self.monto = monto
+        self.rango = rango
+        self.porcentaje = porcentaje
+
+    def __str__(self):
+        cadena = "{0} {1} {2}"
+        return cadena.format(self.monto, self.rango, self.porcentaje)
+
+    def __repr__(self):
+        cadena = "{0} {1} {2}"
+        return cadena.format(self.monto, self.rango, self.porcentaje)
+
 
 def obtenerCDT():
-    url = 'https://www.bbva.com.co/personas/productos/inversion/cdt/tradicional/simulador.html'
-    tasas = {}
+    url = 'https://www.bbva.com.co/personas/productos/inversion/cdt/tradicional.html#tasas-de-interes-e.a'
 
-    driver = webdriver.Chrome()
+    html = requests.get(url).content
 
-    # Los plazos con los cuales se van a calcular las tasas
-    plazos = range(2, 16)
+    soup = BeautifulSoup(html, 'html.parser')
 
-    try:
-        driver.get(url)
-        for i in plazos:
-            # Se selecciona el plazo de CDT
-            elem = driver.find_element_by_xpath("//*")
-            html = elem.get_attribute("outerHTML")
+    tabla = soup.findAll('div', class_='table--value')
 
-            # Se instancia el BeautifulSoup a partir del html
-            soup = BeautifulSoup(html, 'html.parser')
-            print(soup.prettify())
+    filas = []
 
-            ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'headerTitle')))
-            select = Select(ele)
-            select.select_by_visible_text(str(i) + ' meses')
+    montos = []
 
-             # Se selecciona el monto de la inversión como 1 millon
-            ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "resultSimulator\:j_idt6_input")))
-            ele.click()
-            ele.send_keys('1000000')
+    cdts = []
 
-    finally:
-        # Cierra el webdriver
-        driver.quit()
+    for div in tabla:
+        a = div.text
+        b = a.replace('\n', '')
+        c = b.replace('     ', '')
+        d = c.replace('   ','')
+        if '$' in d:
+            filas.append(d)
+        else:
+            e = d.replace(' ', '')
+            filas.append(e)
 
-    return tasas
+    rango = ''
+    contador = 0
 
-
+    for i in range(len(filas)):
+        if '$' in filas[i]:
+            montos.append(filas[i])
+        elif filas[i].isdigit():
+            if 'NOAPLICA' in filas[i+1]:
+                rango = '365'
+                contador = 0
+            else:
+                rango = filas[i+1]
+                contador = 0
+        elif '%' in filas[i]:
+            porcentaje = filas[i]
+            cdt = cdtBBVA(montos[contador], rango, porcentaje)
+            cdts.append(cdt)
+            contador = contador + 1
+    return cdts
