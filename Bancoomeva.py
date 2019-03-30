@@ -2,6 +2,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 import requests
 import tabula
+from CDT import CDT
 
 
 def obtenerCDT():
@@ -33,18 +34,19 @@ def obtenerCDT():
     # Convierte el dataframe a una lista de listas
     info = df.values.tolist()
 
-    tasas = {}
+    listaCDTs = []
     for fila in info:
         for col in fila:
             if isinstance(col, str) and '%' in col:
                 plazoString = fila[1]
                 tasaString = fila[3]
 
-                plazoString = plazoString.replace('y', ' ') #Porque los números estan quedando sin espacio
+                plazoString = plazoString.replace('y', ' ')  # Porque los números estan quedando sin espacio
                 plazoMinimo = [int(s) for s in plazoString.split() if s.isdigit()][0]
 
                 tasa = float(tasaString.strip().strip('%').replace(',', '.'))
 
-                tasas[plazoMinimo] = tasa
+                cdt = CDT('Bancoomeva', plazoMinimo, tasa, None, 300_000)
+                listaCDTs.append(cdt)
 
-    return tasas
+    return listaCDTs

@@ -8,26 +8,29 @@ import Bancoomeva
 import Falabella
 import WWB
 import Davivienda
+from CDT import CDT
 
 funcionesCDTS = [
-    ('AvVillas', AvVillas.obtenerCDT),
-    ('Banco Caja Social', BancoCajaSocial.obtenerCDT),
-    ('Bancolombia', Bancolombia.obtenerCDT),
-    ('Bancoomeva', Bancoomeva.obtenerCDT),
-    ('BBVA', BBVA.obtenerCDT),
-    ('Davivienda', Davivienda.obtenerCDT),
-    ('Falabella', Falabella.obtenerCDT),
-    ('Pichincha', Pichincha.obtenerCDT),
-    ('WWB', WWB.obtenerCDT),
+    AvVillas.obtenerCDT,
+    #BancoCajaSocial.obtenerCDT,
+    #Bancolombia.obtenerCDT,
+    Bancoomeva.obtenerCDT,
+    BBVA.obtenerCDT,
+    Davivienda.obtenerCDT,
+    Falabella.obtenerCDT,
+    Pichincha.obtenerCDT,
+    WWB.obtenerCDT,
 ]
 
 if __name__ == '__main__':
     opcion = 0
 
     if opcion == 0:
-        for (banco, funcionCdt) in funcionesCDTS:
-            tasas = funcionCdt()
-            print(banco, ' - ', tasas)
+        for funcionCdt in funcionesCDTS:
+            listaCDTsBanco = funcionCdt()
+            for cdt in listaCDTsBanco:
+                if isinstance(cdt, CDT):
+                    cdt.POST('http://127.0.0.1:8000')
 
     if opcion == 1:
         tasas = BancoDeBogota.obtenerCDT()

@@ -2,13 +2,13 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from bs4 import BeautifulSoup
-import bs4
+
+from CDT import CDT
 
 
 def obtenerCDT():
     url = 'https://www.bancofalabella.com.co/simulador-cdt'
-    tasas = {}
+    listaCDTs = []
 
     driver = webdriver.Chrome()
 
@@ -17,7 +17,7 @@ def obtenerCDT():
 
     try:
         # Obtiene la tabla de tasas para cada plazo
-        for i in plazos:
+        for plazo in plazos:
             driver.get(url)
             driver.switch_to.frame(
                 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "iframe"))))
@@ -28,7 +28,7 @@ def obtenerCDT():
             # Se selecciona el plazo
             ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "plazo")))
             ele.click()
-            ele.send_keys(str(i))
+            ele.send_keys(str(plazo))
 
             # Se selecciona tipo de CDT (solo hay uno)
             ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "TipoSelect")))
@@ -60,11 +60,13 @@ def obtenerCDT():
                 if float(tasaString[0]) > 0:
                     flagUpdate = True
                     tasa = float(tasaString[0])
-                    tasas[i] = tasa
+
+                    cdt = CDT('Banco Falabella', plazo, tasa, None, 500_000)
+                    listaCDTs.append(cdt)
 
 
     finally:
         # Cierra el webdriver
         driver.quit()
 
-    return tasas
+    return listaCDTs

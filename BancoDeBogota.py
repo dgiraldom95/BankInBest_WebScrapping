@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import bs4
-import re
+from CDT import CDT
 
 
 def obtenerCDT():
@@ -20,16 +20,16 @@ def obtenerCDT():
     filas = []  # Filas de la tabla
     # Se recorren las filas de las tabla (<tr>)
     for child in tabla.children:
-        if type(child) is bs4.Tag: # Solo nos interesan los hijos de tipo bs4.Tag
+        if type(child) is bs4.Tag:  # Solo nos interesan los hijos de tipo bs4.Tag
             cols = []  # Columnas en la fila de la tabla
             # Se obtienen los hijos de la <tr>, los <td>
             for td in child.children:
                 if type(td) is bs4.Tag:
-                    cols.append(td.string) # Se agrega a la lista de las columnas el contenido del <td>
+                    cols.append(td.string)  # Se agrega a la lista de las columnas el contenido del <td>
 
-            filas.append(cols) # Se agrega a la lista de las filas la lista de las columnas de esa fila
+            filas.append(cols)  # Se agrega a la lista de las filas la lista de las columnas de esa fila
 
-    tasas = {}  # Diccionario -> tasas[montoMinimo] = tasa
+    listaCDTs = []
     # Recorre la tabla
     for fila in filas:
         for col in fila:
@@ -45,7 +45,7 @@ def obtenerCDT():
                 tasa = float(tasaString.strip().strip('%'))
 
                 # Se agrega la tasa y el plazo al diccionario
-                tasas[plazoMinimo] = tasa
+                cdt = CDT('Banco de Bogotá', plazoMinimo, tasa, None, 100_000)
+                listaCDTs.append(cdt)
 
-    return tasas
-
+    return listaCDTs

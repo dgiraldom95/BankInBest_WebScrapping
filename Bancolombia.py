@@ -5,11 +5,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import bs4
+from CDT import CDT
 
 
 def obtenerCDT():
     url = 'https://www.grupobancolombia.com/wps/portal/personas/productos-servicios/inversiones/cdts/fisicos/simulador-cdt'
-    tasas = {}
+    listaCDTs = []
 
     driver = webdriver.Chrome()
 
@@ -97,10 +98,11 @@ def obtenerCDT():
                 # Se obtiene la tasa como float, sin espacios y sin '%'
                 tasa = float(tasa.strip('% '))
                 # Se agrega la tasa y el plazo al diccionario
-                tasas[plazo] = tasa
+                cdt = CDT('Bancolombia', plazo, tasa, None, 1_000_000)
+                listaCDTs.append(cdt)
 
     finally:
         # Cierra el webdriver
         driver.quit()
 
-    return tasas
+    return listaCDTs

@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import requests
 import tabula
 
+from CDT import CDT
+
 
 def obtenerCDT():
     # El url que tiene las tasas
@@ -33,7 +35,7 @@ def obtenerCDT():
     # Convierte el dataframe a una lista de listas
     info = df.values.tolist()
 
-    tasas = {}
+    listaCDTs = []
     for fila in info:
         for col in fila:
             if isinstance(col, str) and '%' in col:
@@ -45,6 +47,7 @@ def obtenerCDT():
                     plazoMinimo = plazoMinimo * 365
                 tasa = float(tasaString.strip().strip('%').replace(',', '.'))
 
-                tasas[plazoMinimo] = tasa
+                cdt = CDT('Banco Pichincha', plazoMinimo, tasa, None, 500_000)
+                listaCDTs.append(cdt)
 
-    return tasas
+    return listaCDTs
