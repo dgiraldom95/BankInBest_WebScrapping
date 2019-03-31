@@ -11,14 +11,14 @@ import Davivienda
 from CDT import CDT
 
 funcionesCDTS = [
+    Pichincha.obtenerCDT,
     AvVillas.obtenerCDT,
-    #BancoCajaSocial.obtenerCDT,
-    #Bancolombia.obtenerCDT,
+    BancoCajaSocial.obtenerCDT,
+    Bancolombia.obtenerCDT,
     Bancoomeva.obtenerCDT,
     BBVA.obtenerCDT,
     Davivienda.obtenerCDT,
     Falabella.obtenerCDT,
-    Pichincha.obtenerCDT,
     WWB.obtenerCDT,
 ]
 
@@ -27,10 +27,13 @@ if __name__ == '__main__':
 
     if opcion == 0:
         for funcionCdt in funcionesCDTS:
-            listaCDTsBanco = funcionCdt()
-            for cdt in listaCDTsBanco:
-                if isinstance(cdt, CDT):
-                    cdt.POST('http://127.0.0.1:8000')
+            try:
+                listaCDTsBanco = funcionCdt()
+                for cdt in listaCDTsBanco:
+                    if isinstance(cdt, CDT):
+                        cdt.POST('http://127.0.0.1:8000')
+            except:
+                continue
 
     if opcion == 1:
         tasas = BancoDeBogota.obtenerCDT()

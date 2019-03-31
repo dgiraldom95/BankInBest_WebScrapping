@@ -25,7 +25,7 @@ def obtenerCDT():
             # Se selecciona tipo de CDT como CDT Bancolombia
             ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "comboTipoCDT")))
             select = Select(ele)
-            for wait in range(1000):
+            for wait in range(10):
                 try:
                     time.sleep(0.1)
                     select.select_by_visible_text('CDT BANCOLOMBIA')
@@ -47,7 +47,7 @@ def obtenerCDT():
             ele = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.NAME, "comboPeriodicidadInversion")))
             select = Select(ele)
-            for wait in range(1000):
+            for wait in range(10):
                 try:
                     time.sleep(0.1)
                     select.select_by_visible_text('Mensual')

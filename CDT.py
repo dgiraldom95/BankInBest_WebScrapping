@@ -17,10 +17,10 @@ class CDT:
 
         data = {
             'banco': self.banco,
-            'plazoMinDias': self.plazoMinDias,
+            'plazo_min_dias': self.plazoMinDias,
             'tasa': self.tasaEA,
             'monto': self.montoInversion,
-            'montoMin': self.montominimo
+            'monto_minimo': self.montominimo
         }
 
         r = requests.post(url, data=data)
