@@ -30,7 +30,8 @@ def obtenerCDT():
                     time.sleep(0.1)
                     select.select_by_visible_text('CDT BANCOLOMBIA')
                     break
-                except:
+                except Exception as err:
+                    print(err)
                     continue
 
             # Se selecciona el monto de la inversión como 1 millon

@@ -70,3 +70,7 @@ def obtenerCDT():
         driver.quit()
 
     return listaCDTs
+
+if __name__ == '__main__':
+    l=obtenerCDT()
+    print('asd')

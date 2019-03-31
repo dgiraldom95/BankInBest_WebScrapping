@@ -1,5 +1,6 @@
 import BancoDeBogota
 import Bancolombia
+import Colpatria
 import Pichincha
 import BBVA
 import BancoCajaSocial
@@ -20,6 +21,7 @@ funcionesCDTS = [
     Davivienda.obtenerCDT,
     Falabella.obtenerCDT,
     WWB.obtenerCDT,
+    Colpatria.obtenerCDT,
 ]
 
 if __name__ == '__main__':
@@ -31,7 +33,7 @@ if __name__ == '__main__':
                 listaCDTsBanco = funcionCdt()
                 for cdt in listaCDTsBanco:
                     if isinstance(cdt, CDT):
-                        cdt.POST('http://127.0.0.1:8000')
+                        cdt.POST('http://157.230.14.37:8000')
             except:
                 continue
 
