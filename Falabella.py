@@ -33,10 +33,13 @@ def obtenerCDT():
             # Se selecciona tipo de CDT (solo hay uno)
             ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "TipoSelect")))
             select = Select(ele)
+            WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="TipoSelect"]/option[1]')))
             select.select_by_visible_text('CDT tasa fija')
 
             # Se selecciona periocidad mensual
             ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "periodicidadSelect")))
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="periodicidadSelect"]/optgroup/option[2]')))
             select = Select(ele)
             select.select_by_visible_text('Mensual')
 
