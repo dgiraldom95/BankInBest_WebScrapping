@@ -39,7 +39,6 @@ def obtenerCDT():
                 if type(td) is bs4.Tag:
                     if i == 0:
                         montoMinimo = int(td.string.split('a')[0].split('$')[1].strip('').replace('.',''))
-                        print("monto = " + str(montoMinimo))
                         i=1
                     else:
                         tasa = float(td.string.strip('%').replace(',','.'))
@@ -52,5 +51,8 @@ def obtenerCDT():
     while i < len(plazos):
         cdt = CDT('Banco Popular', plazos[i], tasas[i], montoMinimo, None)
         listaCdts.append(cdt)
+        i+=1
 
+    for cdt in listaCdts:
+        print(str(cdt.montoInversion)+"_"+str(cdt.plazoMinDias)+"_"+str(cdt.tasaEA)+"_"+cdt.banco)
     return listaCdts

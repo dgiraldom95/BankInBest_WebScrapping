@@ -22,7 +22,7 @@ def obtenerCDT():
 
     info = df.values.tolist()
 
-    montoMin = int(''.join(x for x in info[2][2] if x.isdigit()))
+    montoMin = int(''.join(x for x in info[2][1] if x.isdigit()))
     listaCdts =[]
     i = 0
     for fila in info:

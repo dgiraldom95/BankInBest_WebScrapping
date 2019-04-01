@@ -37,5 +37,6 @@ def obtenerCDT():
             cdt = CDT('Davivienda',plazos[i-2],tasa, montoMinimo, None)
             listaCdts.append(cdt)
         i+=1
+
     os.remove(nombrePDF)
     return listaCdts
