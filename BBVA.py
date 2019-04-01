@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import bs4
 import re
 from bs4 import BeautifulSoup
+from CDT import CDT
 
 class cdtBBVA:
     def __init__(self,monto, rango, porcentaje):
@@ -30,9 +31,11 @@ def obtenerCDT():
 
     filas = []
 
-    montos = []
-
     cdts = []
+
+    montoMinimo = 1000000
+
+    plazos= [60, 90, 129, 150, 180, 240, 370, 300, 330, 365]
 
     for div in tabla:
         a = div.text
@@ -45,22 +48,20 @@ def obtenerCDT():
             e = d.replace(' ', '')
             filas.append(e)
 
-    rango = ''
     contador = 0
+    #print(filas)
 
     for i in range(len(filas)):
-        if '$' in filas[i]:
-            montos.append(filas[i])
-        elif filas[i].isdigit():
+        if filas[i].isdigit():
             if 'NOAPLICA' in filas[i+1]:
-                rango = '365'
-                contador = 0
+                rango = 365
+                tasa = float(filas[i + 2].replace('%', '').replace(',', '.'))
+                cdt = CDT('BBVA', rango, tasa, montoMinimo, None)
+                cdts.append(cdt)
             else:
-                rango = filas[i+1]
-                contador = 0
-        elif '%' in filas[i]:
-            porcentaje = filas[i]
-            cdt = cdtBBVA(montos[contador], rango, porcentaje)
-            cdts.append(cdt)
-            contador = contador + 1
+                rango = plazos[contador]
+                tasa = float(filas[i+2].replace('%', '').replace(',','.'))
+                cdt = CDT('BBVA', rango, tasa, montoMinimo, None)
+                cdts.append(cdt)
+                contador = contador+1
     return cdts

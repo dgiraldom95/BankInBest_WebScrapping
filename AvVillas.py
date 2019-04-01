@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import bs4
 import re
 from bs4 import BeautifulSoup
+from CDT import CDT
 
 
 class cdtAV:
@@ -27,13 +28,15 @@ def obtenerCDT():
 
     soup = BeautifulSoup(html, 'html.parser')
 
-    tabla = soup.findAll('table')[0]
+    tabla = soup.findAll('table')[1]
 
     filas = []
 
-    rangos = []
-
     cdts = []
+
+    plazos = [90,120,180,360,540]
+
+    montoMinimo = 10000000
 
     for child in tabla.children:
         if type(child) is bs4.Tag:
@@ -47,18 +50,16 @@ def obtenerCDT():
                     if len(cols) > 0:
                         filas.append(cols)
 
+    print(filas)
+
+    contador = 0
+
     for fila in filas:
-        numCol = 0
-        monto = 'null'
-        porcentaje = 'null'
-        for col in fila:
-            if '[' in col:
-                rangos.append(col)
-            if 'Millones' in col:
-                monto = col
-            if '%' in col:
-                porcentaje = col
-                cdt = cdtAV(monto, rangos[numCol], porcentaje)
-                cdts.append(cdt)
-                numCol = numCol + 1
+        if fila == filas[2]:
+            for col in fila:
+                if '%' in col:
+                    col1 = col.replace('%', '')
+                    tasa = float(col1)
+                    cdt = CDT('AvVillas', plazos[contador], tasa, montoMinimo, None)
+                    cdts.append(cdt)
     return cdts

@@ -29,7 +29,7 @@ funcionesCDTS = [
 ]
 
 if __name__ == '__main__':
-    opcion = 12
+    opcion = 4
 
     if opcion == 0:
         for funcionCdt in funcionesCDTS:
