@@ -25,13 +25,9 @@ def obtenerCDT():
             # Se selecciona tipo de CDT como CDT Bancolombia
             ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "comboTipoCDT")))
             select = Select(ele)
-            for wait in range(10):
-                try:
-                    time.sleep(0.1)
-                    select.select_by_visible_text('CDT BANCOLOMBIA')
-                    break
-                except:
-                    continue
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="sim-detail"]/form/div[2]/select/option')))
+            select.select_by_visible_text('CDT BANCOLOMBIA')
 
             # Se selecciona el monto de la inversión como 1 millon
             ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "textMontoInversion")))
@@ -47,13 +43,10 @@ def obtenerCDT():
             ele = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.NAME, "comboPeriodicidadInversion")))
             select = Select(ele)
-            for wait in range(10):
-                try:
-                    time.sleep(0.1)
-                    select.select_by_visible_text('Mensual')
-                    break
-                except:
-                    continue
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="sim-detail"]/form/div[3]/div[3]/select/option[1]')))
+            select.select_by_visible_text('Mensual')
+
 
             # Se hace click en el boton calcular
             ele = WebDriverWait(driver, 10).until(
