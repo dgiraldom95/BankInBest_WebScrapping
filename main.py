@@ -8,6 +8,8 @@ import Bancoomeva
 import Falabella
 import WWB
 import Davivienda
+import Itau
+import BancoPopular
 from CDT import CDT
 
 funcionesCDTS = [
@@ -20,10 +22,12 @@ funcionesCDTS = [
     Davivienda.obtenerCDT,
     Falabella.obtenerCDT,
     WWB.obtenerCDT,
+    Itau.obtenerCDT,
+    BancoPopular.obtenerCDT,
 ]
 
 if __name__ == '__main__':
-    opcion = 0
+    opcion = 12
 
     if opcion == 0:
         for funcionCdt in funcionesCDTS:
@@ -73,3 +77,9 @@ if __name__ == '__main__':
 
     elif opcion == 10:
         Davivienda.obtenerCDT()
+
+    elif opcion == 11:
+        Itau.obtenerCDT()
+
+    elif opcion == 12:
+        BancoPopular.obtenerCDT()
