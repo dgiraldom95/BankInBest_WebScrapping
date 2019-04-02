@@ -1,6 +1,8 @@
 from pathlib import Path
 import requests
 import tabula
+from CDT import CDT
+
 
 def obtenerCDT():
 
@@ -20,37 +22,39 @@ def obtenerCDT():
 
     info = df.values.tolist()
 
-    tasas = {}
+    listaCDTs = []
 
     for i in info:
-        dia = ''
-        entroDia = False
+        dias = ""
+
         for j in i:
 
-            if str(j) == 'nan':
+            if str(j) == "nan":
                 break
-
             else:
 
-                if entroDia == True:
-                    jTas = str(j)[:4]
-                    jTas = jTas.replace(',','.')
-                    jTas = jTas.strip()
-                    tasas[dia] = jTas
-                    break
-
-
-                else:
+                if(dias == ""):
                     jAct = str(j)[:4]
                     jAct = jAct.strip("D")
                     jAct = jAct.strip()
+                    dias = jAct
+                else:
+                    jtasas = j.replace(',', '.')
+                    jtasas = jtasas.split("%")
+                    del jtasas[3]
 
-                    if jAct in tasas:
-                        break
+                    t = 0
+                    for ts in jtasas:
+                        montoMin = 0
 
-                    tasas[jAct] = 0
+                        if(t == 0):
+                            montoMin = 1000000
+                        elif(t == 1):
+                            montoMin = 100000000
+                        else:
+                            montoMin = 500000000
 
-                    dia = jAct
-                    entroDia = True
-
-    return tasas
+                        cdt = CDT('Banco de Occidente',dias,ts,None,montoMin)
+                        listaCDTs.append(cdt)
+                        t +=1
+    return listaCDTs

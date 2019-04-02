@@ -1,6 +1,8 @@
 from pathlib import Path
 import requests
 import tabula
+from CDT import CDT
+
 
 
 def obtenerCDT():
@@ -21,52 +23,64 @@ def obtenerCDT():
     #dataFrame convertifo en lista
     info = df.values.tolist()
 
-    tasas = {}
+    print(info)
 
+    listaCDTs = []
 
-    #variable para romper el for cuando tengamos toda la info
-    k = 0
+    plazos = []
 
     for i in info:
-
         entroPlazo = False
-        entroTasa = False
-        if k != 0:
-            break
-
+        montoAct = ""
+        k=0
         for j in i:
 
-            #Extraer dias en la fila de plazos
-            if str(j) == 'PLAZO':
-                entroPlazo = True
+            if str(j) == 'MESES' or str(j) == 'RANGOS':
+                break
 
-            elif entroPlazo == True:
+            elif str(j) == 'PLAZO' or entroPlazo == True:
+                if str(j) == 'PLAZO':
+                    entroPlazo = True
+                elif(entroPlazo == True):
 
-                jAct = str(j)[0:3]
-                jAct =jAct.strip('-')
+                    jAct = str(j)[0:3]
+                    jAct = jAct.strip('-')
 
-                if(str(j).startswith('>')):
-                    jAct = str(j)[-4:]
-                    jAct = jAct.strip()
+                    if (str(j).startswith('>')):
+                        jAct = str(j)[-4:]
+                        jAct = jAct.strip()
 
-                if jAct != 'nan':
-                    tasas[jAct] = 0
+                    if jAct != 'nan':
+                        plazos.append(jAct)
+
+            else:
+
+                if str(j) == '1.000.000 49.999.999':
+                    montoAct = 1000000
+                    continue
+                elif str(j) == '50.000.000 99.999.999':
+                    montoAct = 50000000
+                    continue
+                elif str(j) == '100.000.000 499.999.999':
+                    montoAct = 100000000
+                    continue
+                elif str(j) == '> 500.000.000':
+                    montoAct = 500000000
+                    continue
+
+                if str(j) == 'nan':
+                    continue
+                else:
+
+                    dias = plazos[k]
+
+                    jAct = str(j).strip('%')
+                    jAct = jAct.replace(',', '.')
 
 
-            #extraer tasas en la fila de primer rango
-            if str(j) == '1.000.000 49.999.999':
-                entroTasa = True
-            elif entroTasa == True:
-                jAct = str(j).strip('%')
-                jAct = jAct.replace(',','.')
+                    cdt = CDT('Colpatria', dias, jAct, None, montoAct)
+                    listaCDTs.append(cdt)
 
-                if jAct != 'nan':
+                    k+=1
 
-                    #itero sobre las llaves del diccionario en orden
-                    llaves = list(tasas)
-                    llaveAct = llaves[k]
-
-                    tasas[llaveAct] = jAct
-
-                    k += 1
-    return tasas
+    return listaCDTs
