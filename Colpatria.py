@@ -78,7 +78,7 @@ def obtenerCDT():
                     jAct = jAct.replace(',', '.')
 
 
-                    cdt = CDT('Colpatria', dias, jAct, None, montoAct)
+                    cdt = CDT('Colpatria', int(dias), float(jAct), None, int(montoAct))
                     listaCDTs.append(cdt)
 
                     k+=1
