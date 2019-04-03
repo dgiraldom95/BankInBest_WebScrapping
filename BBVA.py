@@ -56,12 +56,12 @@ def obtenerCDT():
             if 'NOAPLICA' in filas[i+1]:
                 rango = 365
                 tasa = float(filas[i + 2].replace('%', '').replace(',', '.'))
-                cdt = CDT('BBVA', rango, tasa, montoMinimo, None)
+                cdt = CDT('BBVA', rango, tasa, None, montoMinimo)
                 cdts.append(cdt)
             else:
                 rango = plazos[contador]
                 tasa = float(filas[i+2].replace('%', '').replace(',','.'))
-                cdt = CDT('BBVA', rango, tasa, montoMinimo, None)
+                cdt = CDT('BBVA', rango, tasa, None, montoMinimo)
                 cdts.append(cdt)
                 contador = contador+1
     return cdts

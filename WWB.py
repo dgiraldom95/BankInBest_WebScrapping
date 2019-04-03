@@ -51,6 +51,6 @@ def obtenerCDT():
                 if colActual > 0:
                     porcentaje = float(info[filaActual][colActual].replace('%', '').replace(',','.'))
                     rangoo = rangos[colActual-1]
-                    cdt = CDT('WWB', rangoo, porcentaje, montoMinimo, None)
+                    cdt = CDT('WWB', rangoo, porcentaje, None, montoMinimo)
                     cdts.append(cdt)
     return cdts

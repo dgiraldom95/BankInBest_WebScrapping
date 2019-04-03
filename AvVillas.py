@@ -60,6 +60,6 @@ def obtenerCDT():
                 if '%' in col:
                     col1 = col.replace('%', '')
                     tasa = float(col1)
-                    cdt = CDT('AvVillas', plazos[contador], tasa, montoMinimo, None)
+                    cdt = CDT('AvVillas', plazos[contador], tasa, None, montoMinimo)
                     cdts.append(cdt)
     return cdts
