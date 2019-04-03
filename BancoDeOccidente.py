@@ -54,7 +54,7 @@ def obtenerCDT():
                         else:
                             montoMin = 500000000
 
-                        cdt = CDT('Banco de Occidente',dias,ts,None,montoMin)
+                        cdt = CDT('Banco de Occidente',int(dias),float(ts),None,int(montoMin))
                         listaCDTs.append(cdt)
                         t +=1
     return listaCDTs
