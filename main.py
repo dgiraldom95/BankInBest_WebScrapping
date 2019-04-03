@@ -11,21 +11,23 @@ import WWB
 import Davivienda
 import Itau
 import BancoPopular
+import BancoDeOccidente
 from CDT import CDT
 
 funcionesCDTS = [
-    Pichincha.obtenerCDT,
     AvVillas.obtenerCDT,
     BancoCajaSocial.obtenerCDT,
+    BancoDeBogota.obtenerCDT,
+    BancoDeOccidente.obtenerCDT,
     Bancolombia.obtenerCDT,
     Bancoomeva.obtenerCDT,
     BBVA.obtenerCDT,
+    Colpatria.obtenerCDT,
     Davivienda.obtenerCDT,
     Falabella.obtenerCDT,
-    WWB.obtenerCDT,
     Itau.obtenerCDT,
-    BancoPopular.obtenerCDT,
-    Colpatria.obtenerCDT,
+    Pichincha.obtenerCDT,
+    WWB.obtenerCDT,
 ]
 
 if __name__ == '__main__':
@@ -38,7 +40,9 @@ if __name__ == '__main__':
                 for cdt in listaCDTsBanco:
                     if isinstance(cdt, CDT):
                         cdt.POST('http://157.230.14.37:8000')
+                print(funcionCdt, " TERMINO")
             except:
+                print(funcionCdt, " FALLO")
                 continue
 
     if opcion == 1:

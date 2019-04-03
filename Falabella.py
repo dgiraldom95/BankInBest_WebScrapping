@@ -20,7 +20,7 @@ def obtenerCDT():
         for plazo in plazos:
             driver.get(url)
             driver.switch_to.frame(
-                WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "iframe"))))
+                WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "iframe"))))
             # Se selecciona el monto de la inversión como 1 millons
             ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "valor")))
             ele.send_keys('1000000')
@@ -44,7 +44,7 @@ def obtenerCDT():
             select.select_by_visible_text('Mensual')
 
             # Se hace click en el boton calcular
-            ele = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "SimularCDT")))
+            ele = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, "SimularCDT")))
             ele.click()
 
             # Espera a que se actualizen las tasas del cdt
