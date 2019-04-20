@@ -1,5 +1,6 @@
 from selenium import webdriver
 import time
+from CalificacionBancaria import CalificacionBancaria
 
 
 def obtenerCalificacion():
@@ -21,17 +22,20 @@ def obtenerCalificacion():
     #accedo a la pagina con la info
     driver.get('http://www.vriskr.com/productos/banco-caja-social-s-a-antes-bcsc/')
 
-    pathNameBanco = driver.find_element_by_xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/article[1]/div[1]/div[1]/div[2]/ul[1]/li[1]")
+   # pathNameBanco = driver.find_element_by_xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/article[1]/div[1]/div[1]/div[2]/ul[1]/li[1]")
     pathCalificacion = driver.find_element_by_xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/article[1]/div[1]/div[1]/div[2]/ul[1]/li[4]")
 
-    nameBanco = str(pathNameBanco.text).split(":")[1]
+   # nameBanco = str(pathNameBanco.text).split(":")[1]
     calificacion = str(pathCalificacion.text).split(":")[1]
 
-    fNameB = nameBanco.split("(")[0].strip()
+   # fNameB = nameBanco.split("(")[0].strip()
     fcal = calificacion.split("/")[0].strip()
 
-    resp = {fNameB:fcal}
+    cal = CalificacionBancaria(str('Banco Caja Social'), str(fcal))
+
 
     driver.quit()
 
-    return resp
+    return cal
+
+print(obtenerCalificacion())

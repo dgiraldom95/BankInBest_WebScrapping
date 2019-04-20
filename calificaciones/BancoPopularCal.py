@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import bs4
+from CalificacionBancaria import CalificacionBancaria
 
 
 def obtenerCalificacion():
@@ -38,7 +39,8 @@ def obtenerCalificacion():
                         if len(resp) != 0 and final != "":
                             for i in resp:
                                 resp[i] = final
-                                break
+                            cal = CalificacionBancaria(str('Banco Popular'), str(final))
+                            break
                         elif len(resp) == 0:
                             resp[final] = ""
 
@@ -48,7 +50,4 @@ def obtenerCalificacion():
 
             filas.append(cols)  # Se agrega a la lista de las filas la lista de las columnas de esa fila
 
-    return resp
-
-
-print(obtenerCalificacion())
+    return cal

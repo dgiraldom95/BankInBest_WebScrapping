@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import bs4
+from CalificacionBancaria import CalificacionBancaria
 
 def obtenerCalificacion():
     # El url que tiene la calificacion
@@ -18,6 +19,7 @@ def obtenerCalificacion():
 
     #diccionario que contiene el banco y su calificacion a largo plazo
     resp = {}
+
 
     filas = [] #filas de la tabla
 
@@ -39,7 +41,10 @@ def obtenerCalificacion():
                         if len(resp) !=0 and final != "":
                             for i in resp:
                                 resp[i] = final
-                                break
+
+                            cal = CalificacionBancaria(str('AvVillas'),str(final))
+                            break
+
                         elif len(resp) == 0:
                             resp[final] = ""
 
@@ -49,4 +54,5 @@ def obtenerCalificacion():
 
             filas.append(cols)  # Se agrega a la lista de las filas la lista de las columnas de esa fila
 
-    return resp
+    return cal
+
