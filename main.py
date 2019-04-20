@@ -16,22 +16,22 @@ from CDT import CDT
 
 funcionesCDTS = [
     AvVillas.obtenerCDT,
+    Bancolombia.obtenerCDT,
     BancoCajaSocial.obtenerCDT,
+    Falabella.obtenerCDT,
     BancoDeBogota.obtenerCDT,
     BancoDeOccidente.obtenerCDT,
-    Bancolombia.obtenerCDT,
     Bancoomeva.obtenerCDT,
     BBVA.obtenerCDT,
     Colpatria.obtenerCDT,
     Davivienda.obtenerCDT,
-    Falabella.obtenerCDT,
     Itau.obtenerCDT,
     Pichincha.obtenerCDT,
     WWB.obtenerCDT,
 ]
 
 if __name__ == '__main__':
-    opcion = 12
+    opcion = 0
 
     if opcion == 0:
         for funcionCdt in funcionesCDTS:

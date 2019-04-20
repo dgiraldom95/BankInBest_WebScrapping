@@ -2,6 +2,7 @@ import requests
 import json
 import pprint
 
+
 class CalificacionBancaria:
 
     def __init__(self, banco: str, calificacion: str):
@@ -9,16 +10,17 @@ class CalificacionBancaria:
         self.calificacion = calificacion
 
     def POST(self, urlBase):
-        url = urlBase + '/api/calificacionBancaria/'
+        urlBanco = self.banco.replace(" ", "-")
+        url = urlBase + '/api/bancos/' + urlBanco + "/"
 
         data = {
-            'banco': self.banco,
-            'calificacion': self.calificacion
+            'nombre': self.banco,
+            'puntaje_bankinbest': self.calificacion
         }
 
-        r = requests.post(url, data = data)
+        r = requests.patch(url, data=data)
         print(self.__repr__(), ' ', r.status_code, ' ', r.reason)
-        pprint.pprint(json.load(r.content))
+        pprint.pprint(json.loads(r.content))
         print('____________________________________________________')
 
     def __repr__(self):

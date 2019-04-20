@@ -51,3 +51,7 @@ def obtenerCalificacion():
             filas.append(cols)  # Se agrega a la lista de las filas la lista de las columnas de esa fila
 
     return cal
+
+if __name__ == '__main__':
+    calificacion = obtenerCalificacion()
+    calificacion.POST('http://157.230.14.37:8080')
