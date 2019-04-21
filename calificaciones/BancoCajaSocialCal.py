@@ -1,6 +1,6 @@
 from selenium import webdriver
 import time
-from CalificacionBancaria import CalificacionBancaria
+from calificaciones.CalificacionBancaria import CalificacionBancaria
 
 
 def obtenerCalificacion():
@@ -38,4 +38,6 @@ def obtenerCalificacion():
 
     return cal
 
-print(obtenerCalificacion())
+if __name__ == '__main__':
+    calificacion = obtenerCalificacion()
+    calificacion.POST('http://157.230.14.37:8080')

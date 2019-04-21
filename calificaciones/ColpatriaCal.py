@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import bs4
-from CalificacionBancaria import CalificacionBancaria
+from calificaciones.CalificacionBancaria import CalificacionBancaria
 
 
 def obtenerCalificacion():
@@ -51,3 +51,4 @@ def obtenerCalificacion():
             filas.append(cols)  # Se agrega a la lista de las filas la lista de las columnas de esa fila
 
     return cal
+

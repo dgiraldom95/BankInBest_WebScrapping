@@ -1,6 +1,6 @@
 from selenium import webdriver
 import time
-from CalificacionBancaria import CalificacionBancaria
+from calificaciones.CalificacionBancaria import CalificacionBancaria
 
 
 def obtenerCalificacion():
@@ -21,5 +21,3 @@ def obtenerCalificacion():
     driver.quit()
 
     return cal
-
-print(obtenerCalificacion())

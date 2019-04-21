@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import bs4
-from CalificacionBancaria import CalificacionBancaria
+from calificaciones.CalificacionBancaria import CalificacionBancaria
 
 
 def obtenerCalificacion():
@@ -52,6 +52,3 @@ def obtenerCalificacion():
 
     return cal
 
-if __name__ == '__main__':
-    calificacion = obtenerCalificacion()
-    calificacion.POST('http://157.230.14.37:8080')

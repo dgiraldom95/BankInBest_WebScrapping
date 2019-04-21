@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import bs4
-from CalificacionBancaria import CalificacionBancaria
+from calificaciones.CalificacionBancaria import CalificacionBancaria
 
 
 

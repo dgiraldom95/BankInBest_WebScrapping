@@ -13,6 +13,25 @@ import Itau
 import BancoPopular
 import BancoDeOccidente
 from CDT import CDT
+#importaciones de calificacion bancaria
+from calificaciones import AvVillasCal
+from calificaciones import BancoCajaSocialCal
+from calificaciones import BancoDeBogotaCal
+from calificaciones import BancoDeOccidenteCal
+from calificaciones import BancolombiaCal
+from calificaciones import BancoomevaCal
+from calificaciones import BancoPopularCal
+from calificaciones import BBVACal
+from calificaciones import ColpatriaCal
+from calificaciones import DaviviendaCal
+from calificaciones import FalabellaCal
+from calificaciones import ItauCal
+from calificaciones import PichinchaCal
+from calificaciones import WWBCal
+from calificaciones.CalificacionBancaria import CalificacionBancaria
+
+
+
 
 funcionesCDTS = [
     AvVillas.obtenerCDT,
@@ -29,6 +48,25 @@ funcionesCDTS = [
     Pichincha.obtenerCDT,
     WWB.obtenerCDT,
 ]
+
+funcionesCalificacion = [
+    AvVillasCal.obtenerCalificacion,
+    BancoCajaSocialCal.obtenerCalificacion,
+    BancoDeBogotaCal.obtenerCalificacion,
+    BancoDeOccidenteCal.obtenerCalificacion,
+    BancolombiaCal.obtenerCalificacion,
+    BancoomevaCal.obtenerCalificacion,
+    BancoPopularCal.obtenerCalificacion,
+    BBVACal.obtenerCalificacion,
+    ColpatriaCal.obtenerCalificacion,
+    DaviviendaCal.obtenerCalificacion,
+    FalabellaCal.obtenerCalificacion,
+    ItauCal.obtenerCalificacion,
+    PichinchaCal.obtenerCalificacion,
+    WWBCal.obtenerCalificacion,
+]
+
+
 
 if __name__ == '__main__':
     opcion = 0
@@ -89,3 +127,17 @@ if __name__ == '__main__':
 
     elif opcion == 12:
         BancoPopular.obtenerCDT()
+
+    #opcion para obtener las califiaciones Bancarias
+    elif opcion == 13:
+        for f in funcionesCalificacion:
+            try:
+                calificacion = f()
+                calificacion.POST('http://157.230.14.37:8080')
+                print(f ," TERMINO")
+            except:
+                print(f ," FALLO")
+                continue
+
+
+
